@@ -4,9 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/department/*")
@@ -16,21 +19,58 @@ public class DepartmentController {
 	private DepartmentService departmentService;
 	
 	@GetMapping("list")
-	public void list() throws Exception {
+	public ModelAndView list(ModelAndView mv) throws Exception {
 		List<DepartmentDTO> ar = departmentService.list();
 		
-		for(DepartmentDTO dto:ar) {
-			System.out.println(dto);
-		}
+		//request와 비슷한 역할, Spring이 제공
+		mv.addObject("list", ar);
+		mv.setViewName("department/list");
 		
+		return mv;
 		
 	}
 	
 	@GetMapping("detail")
-	public void detail(@RequestParam(name="num") String num) {
-		DepartmentDTO departmentdto = departmentService.detail(num);
-		System.out.println(departmentdto);
+	public void detail(@RequestParam(name="num") String num, Model model) {
+		DepartmentDTO departmentDTO = departmentService.detail(num);
 		
+		model.addAttribute("d", departmentDTO);
+		
+	}
+	
+	@GetMapping("create") //URL정보와 JSP경로가 같다면 void로 해도 무방
+	public void create() {}
+	
+	@PostMapping("create")
+	public String create(DepartmentDTO departmentDTO) {
+
+		int result = departmentService.create(departmentDTO);
+	
+		//redirect
+		return "redirect:./list";
+		
+	}
+	
+	@PostMapping("delete")
+	public String delete(DepartmentDTO departmentDTO) {
+		int result = departmentService.delete(departmentDTO);
+		
+		return "redirect:./list";
+	}
+	
+	@GetMapping("update")
+	public void update(DepartmentDTO departmentDTO, Model model) {
+		departmentDTO = departmentService.detail(departmentDTO.getDepartmentNo());
+		
+		model.addAttribute("d", departmentDTO);
+		
+	}
+	
+	@PostMapping("update")
+	public String update(DepartmentDTO departmentDTO) {
+		int result = departmentService.update(departmentDTO);
+		
+		return "redirect:./list";
 	}
 
 }

@@ -29,4 +29,17 @@ public class DepartmentDAO {
 		return session.selectOne(NAMESPACE+"detail", num);
 	}
 	
+	public int create(DepartmentDTO departmentDTO) {
+		return session.insert(NAMESPACE+"create", departmentDTO);
+	}
+	
+	public int delete(DepartmentDTO departmentDTO) {
+		return session.delete(NAMESPACE+"delete", departmentDTO);
+	}
+	
+	public int update(DepartmentDTO departmentDTO) {
+		return session.update(NAMESPACE+"update", departmentDTO);
+	}
+
+	
 }
