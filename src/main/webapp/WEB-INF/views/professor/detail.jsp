@@ -24,8 +24,8 @@
 	                   				<tr>
 	                   					<td>${d.professorNo}</td>
 	                   					<td>${d.professorName}</td>
-	                   					<td>{d.professorSsn}</td>
-	                   					<td>{d.professorAddress}</td>
+	                   					<td>${d.professorSsn}</td>
+	                   					<td>${d.professorAddress}</td>
 	                   					<td>${d.departmentNo}</td>
 	                   					
 	         
