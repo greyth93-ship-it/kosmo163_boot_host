@@ -17,5 +17,21 @@ public class ProfessorService {
 		return ar;
 		
 	}
+	
+	public ProfessorDTO detail(ProfessorDTO professorDTO) throws Exception {
+		return professorMapper.detail(professorDTO);
+	}
+	
+	public int create(ProfessorDTO professorDTO) throws Exception {
+		return professorMapper.create(professorDTO);
+	}
+	
+	public int update(ProfessorDTO professorDTO) throws Exception {
+		return professorMapper.update(professorDTO);
+	}
+	
+	public int delete(ProfessorDTO professorDTO) throws Exception {
+		return professorMapper.delete(professorDTO);
+	}
 
 }
